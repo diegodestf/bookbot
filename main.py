@@ -1,18 +1,28 @@
+from stats import getWordCount
+import sys
+
 def main():
-    with open('./books/frankestein.txt') as f:
-        file_contents = f.read()
-    #print(file_contents)
+    if len(sys.argv) == 2:
+        with open(sys.argv[1]) as f:
+            file_contents = f.read()
+    else:
+        print("Usage: python3 main.py <path_to_book>")
+        return sys.exit(1)
     wordCount = getWordCount(file_contents)
     charCount = getCharCount(file_contents)
-    print(f"--- Begin report of {f.name} ---")
-    print(f"{wordCount} words found in the document\n")
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {f.name}")
+    print("----------- Word Count ----------")
+    print(f"Found {wordCount} total words")
+    print("--------- Character Count -------")
+
+
 
     for char, count in sorted(charCount.items(), key=lambda x: x[1], reverse=True):
-        print(f"The '{char}' character was found {count} times")
+        print(f"{char}: {count}")
 
 
-def getWordCount(text):
-    return len(text.split())
+
 
 def getCharCount(text):
     count = {}
